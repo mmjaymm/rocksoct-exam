@@ -1,0 +1,33 @@
+-user_tasks
+id, task_id, user_id, due_dates, assigned_by (user_id), assigned_date,
+
+-tasks_documentations
+id, user_tasks_id, filename, timestamps
+
+-archived_tasks
+same of tasks table
+
+-task_prerequisites
+id, tasks_id, parent_tasks
+
+
+-tasks
+priority_level 
+
+-task_comments
+id, user_tasks_id, comments, parent_id
+
+
+permissions
+task-delete
+task-update
+task-view
+task-create
+task-assigning
+user-create
+user-delete
+user-view
+user-update
+profile-edit
+profile-view
+profile-delete
