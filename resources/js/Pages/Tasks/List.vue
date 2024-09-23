@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import Badge from '@/Components/Tasks/StatusBadge.vue';
+import PriorityLevelBadge from '@/Components/Tasks/PriorityLevelBadge.vue';
 import axios from 'axios';
 
 defineProps({
@@ -10,6 +12,27 @@ defineProps({
     },
 });
 
+const statusColor = (status: string) => {
+    switch (status) {
+        case 'todo':
+            return 'gray';
+        case 'in-progress':
+            return 'yellow';
+        case 'done':
+            return 'green';
+    }
+}
+
+const priorityLevelColor = (level: string) => {
+    switch (level) {
+        case 'low':
+            return 'red-100';
+        case 'medium':
+            return 'red-400';
+        case 'high':
+            return 'red-800';
+    }
+}
 </script>
 
 <template>
@@ -38,8 +61,12 @@ defineProps({
                                 <tr v-for="task in tasks" class="border-b border-gray-200 hover:bg-gray-100" :key="task.id">
                                     <td class="py-4 px-6">{{ task.title }}</td>
                                     <td class="py-4 px-6">{{ task.description }}</td>
-                                    <td class="py-4 px-6">{{ task.status }}</td>
-                                    <td class="py-4 px-6">{{ task.priority_level }}</td>
+                                    <td class="py-4 px-6">
+                                        <Badge :color="statusColor(task.status)" :text="task.status"/>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <PriorityLevelBadge :bgColor="priorityLevelColor(task.priority_level)" :text="task.priority_level"/>
+                                    </td>
                                     <td class="py-4 px-6">
                                         <!-- <a href="{{ route('tasks.show', ) }}" class="text-blue-500 hover:text-blue-700">View</a>
                                         <a href="{{ route('tasks.edit', $task) }}" class="ml-4 text-yellow-500 hover:text-yellow-700">Edit</a>
