@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
+use App\Models\UserPermissions;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -28,12 +30,6 @@ class AdminUserSeeder extends Seeder
         ], [
             'name' => 'Admin User',
             'password' => Hash::make('password'),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        DB::table('user_role')->insert([
-            'user_id' => $adminUser->id,
             'role_id' => $adminRole->id,
             'created_at' => now(),
             'updated_at' => now(),
@@ -43,8 +39,8 @@ class AdminUserSeeder extends Seeder
         $permissions = DB::table('permissions')->pluck('id');
 
         foreach ($permissions as $permissionId) {
-            DB::table('users_permissions')->firstOrCreate([
-                'role_id' => $adminRole->id,
+            UserPermissions::firstOrCreate([
+                'user_id' => $adminUser->id,
                 'permission_id' => $permissionId,
             ], [
                 'created_at' => now(),
