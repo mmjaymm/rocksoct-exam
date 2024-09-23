@@ -38,17 +38,11 @@ class TaskController extends Controller
         return redirect()->route('tasks')->with('success', 'Task created successfully.');
     }
 
-    public function show($id)
-    {
-        return view('tasks.show', compact('task'));
-    }
+    public function show($id) {}
 
-    public function edit(Tasks $task)
-    {
-        return view('tasks.edit', compact('task'));
-    }
+    public function edit(Tasks $task) {}
 
-    public function update(Request $request, Tasks $task)
+    public function update($id, Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -57,12 +51,13 @@ class TaskController extends Controller
             'priority_level' => 'nullable|integer',
         ]);
 
-        $task->update($request->all());
+        $updatedTask = Tasks::where('id', $id)->update($request->all());
         return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
     }
 
-    public function destroy(Tasks $task)
+    public function destroy($id)
     {
+        $task = Tasks::find($id);
         $task->delete();
         return redirect()->route('tasks.index')->with('success', 'Task deleted successfully.');
     }
@@ -81,6 +76,6 @@ class TaskController extends Controller
             ]);
         }
 
-        return redirect()->route('tasks.index')->with('success', 'Task assigned successfully.');
+        return redirect()->route('tasks')->with('success', 'Task assigned successfully.');
     }
 }
