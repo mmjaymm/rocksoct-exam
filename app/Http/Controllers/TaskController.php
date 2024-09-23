@@ -14,7 +14,7 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Tasks::all();
-        return Inertia::render('Tasks/List', compact('tasks'));
+        return Inertia::render('Tasks/List', ['tasks' => $tasks]);
     }
 
     // Show the form for creating a new task

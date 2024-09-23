@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import axios from 'axios';
+
+defineProps({
+    tasks: {
+        type: Array,
+        default: () => [],
+    },
+});
+
 </script>
 
 <template>
@@ -25,26 +34,24 @@ import { Head } from '@inertiajs/vue3';
                                 <th class="py-3 px-6 text-left">Actions</th>
                             </tr>
                         </thead>
-            <!-- <tbody class="text-gray-700">
-                @foreach($tasks as $task)
-                    <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="py-4 px-6">{{ $task->title }}</td>
-                        <td class="py-4 px-6">{{ $task->description }}</td>
-                        <td class="py-4 px-6">{{ $task->status }}</td>
-                        <td class="py-4 px-6">{{ $task->priority_level }}</td>
-                        <td class="py-4 px-6">
-                            <a href="{{ route('tasks.show', $task) }}" class="text-blue-500 hover:text-blue-700">View</a>
-                            <a href="{{ route('tasks.edit', $task) }}" class="ml-4 text-yellow-500 hover:text-yellow-700">Edit</a>
-                            <form action="{{ route('tasks.destroy', $task) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="ml-4 text-red-500 hover:text-red-700">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody> -->
-        </table>
+                        <tbody class="text-gray-700">
+                                <tr v-for="task in tasks" class="border-b border-gray-200 hover:bg-gray-100" :key="task.id">
+                                    <td class="py-4 px-6">{{ task.title }}</td>
+                                    <td class="py-4 px-6">{{ task.description }}</td>
+                                    <td class="py-4 px-6">{{ task.status }}</td>
+                                    <td class="py-4 px-6">{{ task.priority_level }}</td>
+                                    <td class="py-4 px-6">
+                                        <!-- <a href="{{ route('tasks.show', ) }}" class="text-blue-500 hover:text-blue-700">View</a>
+                                        <a href="{{ route('tasks.edit', $task) }}" class="ml-4 text-yellow-500 hover:text-yellow-700">Edit</a>
+                                        <form action="{{ route('tasks.destroy', $task) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="ml-4 text-red-500 hover:text-red-700">Delete</button>
+                                        </form> -->
+                                    </td>
+                                </tr>
+                        </tbody>
+                    </table>
                 </div>
                 </div>
             </div>
