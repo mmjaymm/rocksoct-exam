@@ -2,8 +2,8 @@
 
 ## Instructions
 
--   git clone <repo>
--   cd <repo>
+-   git clone https://github.com/mmjaymm/rocksoct-exam.git
+-   cd rocksoct-exam
 -   cp .env.example .env
 -   composer install && npm install
 -   npm run dev
